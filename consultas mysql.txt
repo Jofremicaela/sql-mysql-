@@ -1,0 +1,31 @@
+   1)  Obtener la cantidad y precio promedio de los repuestos importados por proveedor
+
+
+select cod_rep
+from repuesto
+where cod_origen = 'I' 
+
+
+select r.cod_rep, count(cod_rep)
+from repuesto r
+where cod_origen = 'I'
+order by r.cod_rep desc
+
+select p.nombre_prov, r.cod_rep,count(r.cod_rep), avg(precio_comp) 
+from repuesto r,lista_prov_art l ,proveedores  p
+where cod_origen='i' 
+and r.cod_rep = l.cod_rep
+and r.cod_rep = p.cod_prov
+order by nombre_prov , cod_rep
+
+
+
+    2)  Hacer un ranking de precios de ventas según la marca y modelo de la moto
+
+
+select marc.desc_marca, m.desc_mod, r.precio_vnta
+from repuesto r, repuesto_modelo repmod ,modelo_moto  m, marca_moto marc
+where r.cod_rep = repmod.cod_rep 
+and repmod.cod_mod = m.cod_mod 
+and m.cod_marca= marc.cod_marca
+order by  precio_vnta desc, desc_marca, desc_mod
